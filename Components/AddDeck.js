@@ -3,8 +3,7 @@ import {
     Text, 
     View, 
     TextInput,
-    KeyboardAvoidingView,
-    TouchableOpacity
+    KeyboardAvoidingView
   } from 'react-native'
 import styled from 'styled-components/native';
 import { green, blue } from '../utils/_colors';
@@ -35,6 +34,7 @@ export default class AddDeck extends Component {
           placeholder="Add Deck Title"
           value={input}
           onChangeText={this.handleOnChange}
+          multiline='true'
         />
         
         <TextButton onPress={this.handleSubmit} background={green} disabled={this.state.input.length < 1}>Submit</TextButton>
@@ -44,7 +44,7 @@ export default class AddDeck extends Component {
 }
 
 const DeckInput = styled.TextInput`
-  font-size: 40px;
+  font-size: 24px;
   border: 3px solid #eee;
   padding: 10px 15px;
   text-align: center;

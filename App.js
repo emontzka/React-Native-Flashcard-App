@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation'
 import AddDeck from './Components/AddDeck';
+import AddCard from './Components/AddCard';
 
 const Tabs = createAppContainer(createBottomTabNavigator({
   AddDeck: {
@@ -60,8 +61,9 @@ export default class App extends React.Component {
       <View style={styles.container}>
         {/* <Deck  title='Deck One' cards='3' /> */}
    
-        <AddDeck />
+        {/* <AddDeck /> */}
         {/* <MainNavigator /> */}
+        <AddCard />
         
       </View>
     );
@@ -71,7 +73,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
