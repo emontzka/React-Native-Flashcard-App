@@ -3,11 +3,18 @@ import { Text, View, TextInput, KeyboardAvoidingView, Keyboard } from 'react-nat
 import styled  from 'styled-components';
 import { green } from '../utils/_colors';
 
-export default function StyledTextInput () {
+export default function StyledTextInput ( { placeholder, onChangeText }) {
   return (
-    <View>
-      <Text> textInComponent </Text>
-    </View>
+    <Input
+    placeholder={placeholder}
+    returnKeyType='done'
+    autoFocus={true}
+    multiline={true}
+    editable={true}
+    autoCorrect={false}
+    onSubmitEditing={Keyboard.dismiss}
+    onChangeText={ onChangeText }
+      />
   )
 }
 
@@ -16,7 +23,7 @@ const Input = styled.TextInput`
   font-size: 24;
   padding: 15px;
   border-radius: 10px;
-  min-width: 300px;
+  width: 300px;
   margin-top: 10px;
   margin-bottom: 10px;
 `;
