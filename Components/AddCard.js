@@ -3,8 +3,9 @@ import {  View,  KeyboardAvoidingView} from 'react-native'
 import TextButton from './TextButton';
 import { green, purple } from '../utils/_colors';
 import StyledTextInput from './StyledTextInput';
+import { connect } from 'react-redux';
 
-export default class AddCard extends Component {
+class AddCard extends Component {
   state={
     question: '',
     answer: ''
@@ -13,6 +14,8 @@ export default class AddCard extends Component {
   handleSubmit = () => {
     console.log('add question submit');
     //redux
+    const {question, answer} = this.state
+    const deck = navigation.getParam('deck');
     //AsyncStorage
     // reset state
     //navigate to Deck
@@ -20,6 +23,7 @@ export default class AddCard extends Component {
 
   render() {
     const {question, answer} = this.state;
+    const deck = navigation.getParam('deck');
     return (
       <View>
         <KeyboardAvoidingView  behavior='padding'>
@@ -31,5 +35,7 @@ export default class AddCard extends Component {
     )
   }
 }
+
+export default connect()(AddCard)
 
 

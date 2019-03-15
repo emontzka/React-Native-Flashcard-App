@@ -10,6 +10,14 @@ import CardView from './components/CardView';
 import DeckList from './components/DeckList';
 import { purple, green } from './utils/_colors';
 import QuizResults from './components/QuizResults';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers';
+import middleware from './middleware';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { connect } from 'react-redux';
+
+
 
 
 
@@ -52,9 +60,9 @@ export default class App extends React.Component {
 
   render() {
     return (
+      <Provider store={createStore(reducer, composeWithDevTools(middleware))}>
+
       <View style={styles.container}>
-        
-   
         {/* <AddDeck /> */}
         <MainNavigator />
         {/* <AddCard /> */}
@@ -62,6 +70,7 @@ export default class App extends React.Component {
         {/* <CardView /> */}
         
       </View>
+      </Provider>
     );
   }
 }

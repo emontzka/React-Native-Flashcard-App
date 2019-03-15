@@ -12,10 +12,7 @@ import {
 import DeckView from './DeckView';
 import AddCard from './AddCard';
 import TextButton from './TextButton';
-
-
-
-
+import { connect } from 'react-redux';
 
 
 const DeckItem = ({title, cards, nav}) => {
@@ -35,28 +32,6 @@ const DeckItem = ({title, cards, nav}) => {
  
 }
 
-class Decks extends Component {
-  render() {
-    return (
-      <View>
-        <Text style={{height: 50}}>Text below scroll view.</Text>
-        
-      <ScrollView>
-        <DeckItem  title={'Deck One'} cards={3} />
-        <DeckItem  title='Deck One' cards='3' />
-        <DeckItem  title='Deck One' cards='3' />
-        <DeckItem  title='Deck One' cards='3' />
-        <DeckItem  title={'Deck Three'} cards={3} />
-        <DeckItem  title='Deck One' cards='3' />
-        <DeckItem  title='Deck One' cards='3' />
-        <DeckItem  title='Deck One' cards='3' />
-      </ScrollView>
-      <Text style={{height: 50}}>Text below scroll view.</Text>
-      </View>
-    )
-  }
-}
-
 
 
 class Decklist extends React.Component{
@@ -70,17 +45,28 @@ class Decklist extends React.Component{
       />
     ),
   };
-  goToDeck = () => {
-    this.props.navigation.navigate('DeckView')
+  goToDeck = (deck, cardsLength, title) => {
+    this.props.navigation.navigate('DeckView', {
+      deck,
+      cardsLength,
+      title
+    })
   }
   addNewDeck = () => {
     this.props.navigation.navigate('AddDeck')
   }
   render () {
+    const { deckArray, decks } = this.props
     return (
       <View>
         <TouchableOpacity onPress={this.addNewDeck}><Text>Add Deck</Text></TouchableOpacity>
-        <DeckItem  title='Deck One' cards='3' nav={this.goToDeck} />
+        {deckArray.map(deck => {
+          const cardsLength = decks[deck].questions.length;
+          const title = decks[deck].title;
+          return (<DeckItem key={deck} title={title} cards={cardsLength} nav={this.goToDeck(deck, cardsLength, title)} />)
+        })}
+
+        
       </View>
       
     )
@@ -111,4 +97,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Decklist;
+function mapStateToProps({decks}) {
+  const deckArray = Object.keys(decks);
+  return {
+    decks,
+    deckArray
+  }
+}
+
+export default connect(mapStateToProps)(Decklist);
