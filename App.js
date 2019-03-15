@@ -1,52 +1,45 @@
 import React, {Component, Fragment} from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation'
-import AddDeck from './Components/AddDeck';
-import AddCard from './Components/AddCard';
+import AddDeck from './components/AddDeck';
+import AddCard from './components/AddCard';
+import DeckView from './components/DeckView';
+import CardView from './components/CardView';
+import DeckList from './components/DeckList';
+import { purple, green } from './utils/_colors';
+import QuizResults from './components/QuizResults';
 
-const Tabs = createAppContainer(createBottomTabNavigator({
-  AddDeck: {
-    screen: AddDeck,
-    navigationOptions: {
-      tabBarLabel: 'Add Deck',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
-    },
-  }
-}, {
-  navigationOptions: {
-    header: null
-  },
-  tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? 'purple' : 'white',
-    style: {
-      height: 56,
-      backgroundColor: Platform.OS === 'ios' ? 'white' : 'purple',
-      shadowColor: 'rgba(0, 0, 0, 0.24)',
-      shadowOffset: {
-        width: 0,
-        height: 3
-      },
-      shadowRadius: 6,
-      shadowOpacity: 1
-    }
-  }
-}))
+
 
 const MainNavigator = createAppContainer(createStackNavigator({
   home: {
-    screen: Tabs,
-    navigationOptions: {
-      header: null
-    }
+    screen: DeckList,
+  },
+  AddDeck: {
+    screen: AddDeck
+  },
+  AddCard: {
+    screen: AddCard
+  },
+  CardView: {
+    screen: CardView
+  },
+  DeckView: {
+    screen: DeckView
+  },
+  QuizResults: {
+    screen: QuizResults
   }
+  
 }))
 
-class Deck extends Component {
+class DeckItem extends Component {
   render() {
     return (
       <View style={styles.deck}>
+      
         <Text style={styles.deckTitle} >{this.props.title}</Text>
         <Text style={{ textAlign: 'center' }}>{this.props.cards} cards</Text>
       </View>
@@ -54,16 +47,19 @@ class Deck extends Component {
   }
 }
 
+
 export default class App extends React.Component {
 
   render() {
     return (
       <View style={styles.container}>
-        {/* <Deck  title='Deck One' cards='3' /> */}
+        
    
         {/* <AddDeck /> */}
-        {/* <MainNavigator /> */}
-        <AddCard />
+        <MainNavigator />
+        {/* <AddCard /> */}
+        {/* <DeckView /> */}
+        {/* <CardView /> */}
         
       </View>
     );
@@ -73,15 +69,15 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
   },
   deck: {
     borderWidth: 1,
     borderColor: 'black',
     padding: 10,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 30,
+    paddingBottom: 30,
     width: '100%',
     textAlign: 'center',
     flex: 1,

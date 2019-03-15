@@ -8,7 +8,7 @@ export default function StyledTextInput ( { placeholder, onChangeText }) {
     <Input
     placeholder={placeholder}
     returnKeyType='done'
-    autoFocus={true}
+    autoFocus={false}
     multiline={true}
     editable={true}
     autoCorrect={false}
