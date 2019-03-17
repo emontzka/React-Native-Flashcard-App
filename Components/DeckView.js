@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 class DeckView extends Component {
 
-  addCard = () => {
+  addCard = (deck) => {
     this.props.navigation.navigate('AddCard', {
       deck
     })
