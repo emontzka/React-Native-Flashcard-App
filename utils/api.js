@@ -24,13 +24,41 @@ const initialData = {
     title: "React",
     questions: [
       {
-        question: "When would you use a Class Component over a Functional Component?"
+        question: "When would you use a Class Component over a Functional Component?",
         answer: "If your component has state or a lifecycle method(s), use a Class component. Otherwise, use a Functional component."
       }
     ]
   }
 }
 
-// export function addDeck ({ deckId, }) {
+export function fetchDecks() {
+  return AsyncStorage.getItem(APP_STORAGE_KEY)
+  .then((res) => {
+    if (res === null) {
+      debugger;
+      AsyncStorage.setItem(APP_STORAGE_KEY, JSON.stringify(initialData))
+      .then(() => {
+        AsyncStorage.getItem(APP_STORAGE_KEY,(err, result) => {
+          return JSON.parse(result)
+        })
+      })
+    } else {
+      return JSON.parse(res)
+    }
+  })
+}
 
+export function addDeckAsync (deckId, title) {
+  const obj= {
+    [deckId]: {
+      title: title,
+      questions: []
+    }
+  }
+  return AsyncStorage.mergeItem(APP_STORAGE_KEY, JSON.stringify(obj))
+}
+
+// export function addCardSync (deckObj, deck,  question, answer) {
+//   deckObj.questions[].push({question: question, answer: answer})
+//   return AsyncStorage.mergeItem(APP_STORAGE_KEY[deck], JSON.stringify(deckObj))
 // }

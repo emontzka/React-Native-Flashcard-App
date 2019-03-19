@@ -16,6 +16,8 @@ import reducer from './reducers';
 import middleware from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { connect } from 'react-redux';
+import { fetchDecks } from './utils/api';
+import { receiveDecks } from './actions/index';
 
 
 
@@ -40,35 +42,46 @@ const MainNavigator = createAppContainer(createStackNavigator({
   QuizResults: {
     screen: QuizResults
   }
-  
-}))
-
-class DeckItem extends Component {
-  render() {
-    return (
-      <View style={styles.deck}>
-      
-        <Text style={styles.deckTitle} >{this.props.title}</Text>
-        <Text style={{ textAlign: 'center' }}>{this.props.cards} cards</Text>
-      </View>
-    );
+  },{
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: purple,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold'
+      }
+    }
   }
-}
+))
+
+// class DeckItem extends Component {
+//   render() {
+//     return (
+//       <View style={styles.deck}>
+      
+//         <Text style={styles.deckTitle} >{this.props.title}</Text>
+//         <Text style={{ textAlign: 'center' }}>{this.props.cards} cards</Text>
+//       </View>
+//     );
+//   }
+// }
 
 
 export default class App extends React.Component {
+
+  // componentDidMount () {
+  //   fetchDecks()
+  //   .then((res)=> this.props.dispatch(receiveDecks(res)))
+
+  // }
 
   render() {
     return (
       <Provider store={createStore(reducer, composeWithDevTools(middleware))}>
 
       <View style={styles.container}>
-        {/* <AddDeck /> */}
         <MainNavigator />
-        {/* <AddCard /> */}
-        {/* <DeckView /> */}
-        {/* <CardView /> */}
-        
       </View>
       </Provider>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    AsyncStorage
   } from 'react-native'
 import styled from 'styled-components/native';
 import { green, blue } from '../utils/_colors';
@@ -8,6 +9,8 @@ import TextButton from './TextButton';
 import StyledTextInput from './StyledTextInput';
 import { connect } from 'react-redux';
 import {addDeck} from '../actions'
+import { addDeckAsync, APP_STORAGE_KEY } from '../utils/api';
+
 
 
 
@@ -18,9 +21,12 @@ class AddDeck extends Component {
     // add deck in redux
     const space = /\s/g;
     const title = this.state.input;
-    const id = title.toLowerCase().replace(space,'_');
-    console.log(id);
-    this.props.dispatch(addDeck(id, title))
+    const deckId = title.toLowerCase().replace(space,'_');
+    console.log('deckId is ', deckId)
+    this.props.dispatch(addDeck(deckId, title))
+    addDeckAsync(deckId, title)
+    // AsyncStorage.mergeItem(APP_STORAGE_KEY, JSON.stringify({deckId: {title: title, questions: []}}))
+    
     // add deck to AsyncStorage
     // navigate to DeckView of new deck
   }

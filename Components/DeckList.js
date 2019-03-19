@@ -6,46 +6,35 @@ import {
     ScrollView,
     TouchableHighlight,
     TouchableOpacity,
-    Button
+    Button,
+    AsyncStorage
   } from 'react-native'
-  import { StackNavigator } from 'react-navigation'
+import { StackNavigator } from 'react-navigation'
 import DeckView from './DeckView';
 import AddCard from './AddCard';
 import TextButton from './TextButton';
 import { connect } from 'react-redux';
-
-
-const DeckItem = ({title, cards, nav}) => {
-    return ( 
-    <View style={styles.deck}>
-    
-      <TouchableOpacity onPress={nav}>
-      <Fragment>
-      <Text style={styles.deckTitle} >{title}</Text>
-        <Text style={{ textAlign: 'center' }}>{cards} cards</Text>
-      </Fragment>
-       
-      </TouchableOpacity>
-
-    </View>
-  );
- 
-}
+import { fetchDecks, APP_STORAGE_KEY } from '../utils/api';
+import { receiveDecks } from '../actions/index';
+import { AppLoading } from 'expo'
+import DeckItem from './DeckItem';
+import styled from 'styled-components'
 
 
 
 class Decklist extends React.Component{
+
+  state={ready: false}
+
+  componentDidMount () {
+    fetchDecks()
+    .then((res)=> this.props.dispatch(receiveDecks(res)))
+    .then(this.setState({ready: true}))
+  }
   static navigationOptions = {
-    headerTitle: null,
-    headerRight: (
-      <Button
-        onPress={() => this.addNewDeck}
-        title="Button title"
-        color="#000"
-      />
-    ),
+    title: 'Home',
   };
-  goToDeck = (deck, cardsLength, title) => {
+  goToDeck = (deck, cardsLength, title, e) => {
     this.props.navigation.navigate('DeckView', {
       deck,
       cardsLength,
@@ -55,47 +44,42 @@ class Decklist extends React.Component{
   addNewDeck = () => {
     this.props.navigation.navigate('AddDeck')
   }
+
+
+
   render () {
     const { deckArray, decks } = this.props
+    const { ready } = this.state
+    if ( ready === false) {
+      return <AppLoading />
+    }
     return (
-      <View>
-        <TouchableOpacity onPress={this.addNewDeck}><Text>Add Deck</Text></TouchableOpacity>
+      <ScrollView>
+        <AddDeckBtn onPress={this.addNewDeck}><AddDeckBtnText>+ Add Deck +</AddDeckBtnText></AddDeckBtn>
         {deckArray.map(deck => {
-          const cardsLength = decks[deck].questions.length;
+          const cardsLength = decks[deck].questions.length === undefined ? 0 : decks[deck].questions.length ;
           const title = decks[deck].title;
-          return (<DeckItem key={deck} title={title} cards={cardsLength} nav={this.goToDeck(deck, cardsLength, title)} />)
+          return (
+            <DeckItem key={deck} title={title} cardsLength={cardsLength} callBackFunc={(e) => this.goToDeck(deck, cardsLength, title, e)} />
+          )
         })}
-
         
-      </View>
+      </ScrollView>
       
     )
   }
 }
 
+const AddDeckBtn = styled.TouchableOpacity`
+  padding: 15px;
+  text-align: center;
+  font-size: 20px;
+`;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-  },
-  deck: {
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
-    paddingTop: 30,
-    paddingBottom: 30,
-    width: '100%',
-    textAlign: 'center',
-    // flex: 1,
-    // flexDirection: 'column'
-  },
-  deckTitle: {
-    fontSize: 24,
-    textAlign: 'center'
-  }
-});
+const AddDeckBtnText = styled.Text`
+  text-align: center;
+  font-size: 20px;
+`;
 
 function mapStateToProps({decks}) {
   const deckArray = Object.keys(decks);
