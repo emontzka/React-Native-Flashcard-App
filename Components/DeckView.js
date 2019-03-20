@@ -8,9 +8,9 @@ import { resetCounter } from '../actions/counter';
 class DeckView extends Component {
  
 
-  static navigationOptions = () => {
+  static navigationOptions = ({navigation}) => {
     return {
-      title: 'Deck View'
+      title: navigation.getParam('title')
     }
   };
 
@@ -23,7 +23,6 @@ class DeckView extends Component {
   }
 
   startQuiz = (deck, cardsLength, e) => {
-    console.log('start quiz');
     this.props.dispatch(resetCounter)
     this.props.navigation.navigate('CardView', {
       deck,
@@ -40,8 +39,8 @@ class DeckView extends Component {
     const hasCards = cardsLength > 0;
 
     return (
-      <View style={{flex: 1}}>
-        <Text>{title}</Text>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{fontSize: 32, color: green, fontWeight: 'bold'}}>{title}</Text>
         <Text> {cardsLength} cards</Text>
         <KeyboardAvoidingView>
           {!hasCards && (
