@@ -78,6 +78,7 @@ const AddDeckBtn = styled.TouchableOpacity`
 const AddDeckBtnText = styled.Text`
   text-align: center;
   font-size: 20px;
+  font-weight: bold;
 `;
 
 function mapStateToProps({decks}) {

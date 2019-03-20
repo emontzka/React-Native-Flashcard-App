@@ -29,5 +29,6 @@ const DeckContainer = styled.View`
 const DeckTitle = styled.Text`
   font-size: 24px;
   text-align: center;
+  font-weight: bold;
 `;
 

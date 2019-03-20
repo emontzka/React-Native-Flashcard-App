@@ -40,7 +40,7 @@ class DeckView extends Component {
 
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontSize: 32, color: green, fontWeight: 'bold'}}>{title}</Text>
+        <Text style={{fontSize: 32, color: purple, fontWeight: 'bold'}}>{title}</Text>
         <Text> {cardsLength} cards</Text>
         <KeyboardAvoidingView>
           {!hasCards && (

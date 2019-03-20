@@ -20,16 +20,8 @@ class AddCard extends Component {
   };
   
   handleSubmit = (deck, question, answer) => {
-    
-    //redux
-    console.log('in add card: ', deck, question, answer)
     const {dispatch, decks} = this.props
     dispatch(addQuestion(deck, question, answer))
-    console.log(`decks is ${JSON.stringify(this.props.decks[deck])}`)
-    // addCardSync(decks[deck],deck, question, answer)
-    //AsyncStorage
-    // reset state
-    //navigate to Deck
     this.props.navigation.navigate('DeckView', {
       deck
     })
@@ -39,11 +31,10 @@ class AddCard extends Component {
     const {question, answer} = this.state;
     const deck = this.props.navigation.getParam('deck');
     return (
-      <View>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <KeyboardAvoidingView  behavior='padding'>
-        <Text style={{fontSize: 24}}>Deck is {deck}</Text>
-          <TextInput style={{padding: 10, fontSize: 24}} value={this.state.question} placeholder={'Enter your question'} onChangeText={(question) => this.setState({question})} />
-          <TextInput style={{padding: 10, fontSize: 24}} value={answer}  placeholder={'Enter your answer'} onChangeText={(answer) => this.setState({answer})} />
+          <StyledTextInput style={{padding: 10, fontSize: 24}} value={this.state.question} placeholder={'Enter your question'} onChangeText={(question) => this.setState({question})} />
+          <StyledTextInput style={{padding: 10, fontSize: 24}} value={answer}  placeholder={'Enter your answer'} onChangeText={(answer) => this.setState({answer})} />
           <TextButton onPress={(e) => this.handleSubmit(deck, question, answer)} background={green}>Submit</TextButton>
         </KeyboardAvoidingView>
       </View>
