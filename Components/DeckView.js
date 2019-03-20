@@ -3,15 +3,18 @@ import { Text, View, KeyboardAvoidingView } from 'react-native'
 import TextButton from './TextButton';
 import { purple, green } from '../utils/_colors';
 import { connect } from 'react-redux';
+import { resetCounter } from '../actions/counter';
 
 class DeckView extends Component {
  
 
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = () => {
     return {
-      title: navigation.getParam('title')
+      title: 'Deck View'
     }
   };
+
+  
 
   addCard = (deck, e) => {
     this.props.navigation.navigate('AddCard', {
@@ -21,19 +24,19 @@ class DeckView extends Component {
 
   startQuiz = (deck, cardsLength, e) => {
     console.log('start quiz');
+    this.props.dispatch(resetCounter)
     this.props.navigation.navigate('CardView', {
       deck,
-      cardsLength,
       currentCard: 0,
       correct: 0
     })
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, decks } = this.props;
     const deck = navigation.getParam('deck');
-    const cardsLength = navigation.getParam('cardsLength');
-    const title = navigation.getParam('title');
+    const title = decks[deck].title;
+    const cardsLength = decks[deck].questions.length;
     const hasCards = cardsLength > 0;
 
     return (
@@ -55,10 +58,10 @@ class DeckView extends Component {
   }
 }
 
-function mapStateToProps({navigation}) {
- 
+function mapStateToProps({ decks}) {
+  
   return {
-   
+   decks
   }
 }
 export default connect(mapStateToProps)(DeckView)

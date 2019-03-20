@@ -1,3 +1,4 @@
+
 export const ADD_DECK = 'ADD_DECK'
 export const ADD_QUESTION = 'ADD_QUESTION'
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
@@ -27,10 +28,12 @@ export function addQuestion (deck, question, answer) {
   }
 }
 
-export function correctAnswers (correct) {
-  return {
-    type: CORRECT_ANSWERS,
-    correct
-  }
-}
+// export function correctAnswers (correct) {
+//   return {
+//     type: CORRECT_ANSWERS,
+//     correct
+//   }
+// }
+
+
 

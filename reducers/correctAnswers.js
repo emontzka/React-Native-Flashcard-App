@@ -1,10 +1,18 @@
-import { CORRECT_ANSWERS } from '../actions/index';
 
-export default function correctAnswers ( state = 0, action) {
+import { INCREMENT_COUNTER, RESET_COUNTER } from '../actions/counter';
+const initialState = {count: 0}
+
+export default function correctAnswers ( state = initialState, action) {
   switch (action.type) {
-    case CORRECT_ANSWERS :
+    case INCREMENT_COUNTER :
       return {
-        count: state + 1
+        ...state,
+        count: state.count + 1
+      }
+    case RESET_COUNTER :
+      return {
+        ...state,
+        ...initialState
       }
       default :
       return state

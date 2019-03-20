@@ -16,7 +16,7 @@ import reducer from './reducers';
 import middleware from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { connect } from 'react-redux';
-import { fetchDecks } from './utils/api';
+import { fetchDecks, setLocalNotification } from './utils/api';
 import { receiveDecks } from './actions/index';
 
 
@@ -70,11 +70,10 @@ const MainNavigator = createAppContainer(createStackNavigator({
 
 export default class App extends React.Component {
 
-  // componentDidMount () {
-  //   fetchDecks()
-  //   .then((res)=> this.props.dispatch(receiveDecks(res)))
+  componentDidMount () {
+    setLocalNotification()
 
-  // }
+  }
 
   render() {
     return (

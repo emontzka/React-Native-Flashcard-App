@@ -34,10 +34,9 @@ class Decklist extends React.Component{
   static navigationOptions = {
     title: 'Home',
   };
-  goToDeck = (deck, cardsLength, title, e) => {
+  goToDeck = (deck, title, e) => {
     this.props.navigation.navigate('DeckView', {
       deck,
-      cardsLength,
       title
     })
   }
@@ -60,7 +59,7 @@ class Decklist extends React.Component{
           const cardsLength = decks[deck].questions.length === undefined ? 0 : decks[deck].questions.length ;
           const title = decks[deck].title;
           return (
-            <DeckItem key={deck} title={title} cardsLength={cardsLength} callBackFunc={(e) => this.goToDeck(deck, cardsLength, title, e)} />
+            <DeckItem key={deck} title={title} cardsLength={cardsLength} callBackFunc={(e) => this.goToDeck(deck, title, e)} />
           )
         })}
         

@@ -30,6 +30,9 @@ class AddCard extends Component {
     //AsyncStorage
     // reset state
     //navigate to Deck
+    this.props.navigation.navigate('DeckView', {
+      deck
+    })
   }
 
   render() {
