@@ -103,8 +103,7 @@ class CardView extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
 
-        <Text style={{textAlign: 'center', fontSize: 20}}>You have {cardsLength - currentCard} remaining.</Text>
-        <Text>State is {this.state.facing ? 'True' : 'False'}</Text>
+        <Text style={{textAlign: 'center', fontSize: 20}}>{cardsLength - currentCard} cards remaining.</Text>
         {!this.state.facing && this.flipCard()}
 
         <View>

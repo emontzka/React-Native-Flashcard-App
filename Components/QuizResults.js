@@ -28,8 +28,10 @@ class QuizResults extends Component {
     const correct = this.props.correctAnswers.count
     const total = this.props.decks[deck].questions.length
     return (
-      <View>
-        <Text> You got {correct} out of {total}  correct.</Text>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{fontSize: 24}}> You got </Text>
+        <Text style={{color: green, fontSize: 32, fontWeight: 'bold'}}>{correct} out of {total}  </Text>
+        <Text style={{fontSize: 24}}>correct.</Text>
         <TextButton background={green} onPress={() => this.startQuiz(deck)}>Start Quiz Again?</TextButton>
         <TextButton background={purple} onPress={() => this.backToDeck(deck)}>Back to Deck</TextButton>
       </View>
