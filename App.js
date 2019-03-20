@@ -16,8 +16,9 @@ import reducer from './reducers';
 import middleware from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { connect } from 'react-redux';
-import { fetchDecks, setLocalNotification } from './utils/api';
+import { fetchDecks, setLocalNotification, getDecks } from './utils/api';
 import { receiveDecks } from './actions/index';
+
 
 
 

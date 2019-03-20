@@ -14,7 +14,7 @@ import DeckView from './DeckView';
 import AddCard from './AddCard';
 import TextButton from './TextButton';
 import { connect } from 'react-redux';
-import { fetchDecks, APP_STORAGE_KEY } from '../utils/api';
+import { fetchDecks,getDecks, APP_STORAGE_KEY } from '../utils/api';
 import { receiveDecks } from '../actions/index';
 import { AppLoading } from 'expo'
 import DeckItem from './DeckItem';
@@ -27,7 +27,7 @@ class Decklist extends React.Component{
   state={ready: false}
 
   componentDidMount () {
-    fetchDecks()
+    getDecks()
     .then((res)=> this.props.dispatch(receiveDecks(res)))
     .then(this.setState({ready: true}))
   }

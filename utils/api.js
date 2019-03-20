@@ -4,7 +4,7 @@ import { Notifications, Permissions } from 'expo'
 export const APP_STORAGE_KEY = 'FlashCards:decks'
 export const NOTIFICATION_KEY = 'FlashCards:notifications'
 
-const initialData = {
+const decks = {
   javascript: {
     title: "JavaScript",
     questions: [
@@ -33,37 +33,12 @@ const initialData = {
   }
 }
 
-export function fetchDecks() {
-  return AsyncStorage.getItem(APP_STORAGE_KEY)
-  .then((res) => {
-    if (res === null) {
-      debugger;
-      AsyncStorage.setItem(APP_STORAGE_KEY, JSON.stringify(initialData))
-      .then(() => {
-        AsyncStorage.getItem(APP_STORAGE_KEY,(err, result) => {
-          return JSON.parse(result)
-        })
-      })
-    } else {
-      return JSON.parse(res)
-    }
+export function getDecks() {
+  return new Promise((res, rej) => {
+    setTimeout( () => res({...decks}), 500)
   })
 }
 
-export function addDeckAsync (deckId, title) {
-  const obj= {
-    [deckId]: {
-      title: title,
-      questions: []
-    }
-  }
-  return AsyncStorage.mergeItem(APP_STORAGE_KEY, JSON.stringify(obj))
-}
-
-// export function addCardSync (deckObj, deck,  question, answer) {
-//   deckObj.questions[].push({question: question, answer: answer})
-//   return AsyncStorage.mergeItem(APP_STORAGE_KEY[deck], JSON.stringify(deckObj))
-// }
 
 export function clearLocalNotification () {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)

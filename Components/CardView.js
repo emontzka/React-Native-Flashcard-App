@@ -51,7 +51,6 @@ class CardView extends Component {
         tension: 10
       }).start();
     }
-
   }
 
   submitAnswer(cardsLength, currentCard, correct, deck) {
