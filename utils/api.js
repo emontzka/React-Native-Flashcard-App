@@ -61,6 +61,7 @@ function createNotification () {
   }
 }
 
+// Notification code is from Udacity Nanodegree course
 export function setLocalNotification () {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
