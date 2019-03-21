@@ -28,6 +28,10 @@ const decks = {
       {
         question: "When would you use a Class Component over a Functional Component?",
         answer: "If your component has state or a lifecycle method(s), use a Class component. Otherwise, use a Functional component."
+      },
+      {
+        question: "What are some of React's lifecycle methods?",
+        answer: "getDerivedStateFromProps, render, componentDidMount, shouldComponentUpdate, getSnapshotBeforeUpdate, componentDidUpdate, componentWillUnmount"
       }
     ]
   }
